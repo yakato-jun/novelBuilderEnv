@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>タイトル作成　画面</title>
+    <script>
+      function createTitle() {
+        const titleName = document.getElementById('titleName').value;
+        const overview = document.getElementById('overview').value;
+        const genre = document.getElementById('genre').value;
+
+        fetch('http://localhost:3000/app/title/post', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({
+            titleName,
+            overview,
+            genre
+          })
+        })
+        .then(response => response.json())
+        .then(data => {
+          if (data.result === 0) {
+            alert('タイトルを作成しました！');
+            window.location.href = 'http://localhost/index.html';
+          } else {
+            alert('タイトルの作成に失敗しました！');
+          }
+        });
+      }
+    </script>
+</head>
+<body>
+    <header>
+    <a href="index.html"># home</a>
+    </h1>
+    </header>
+    <nav>
+    <br/>   
+    タイトル (必須)<br/><input type="text" id="titleName" placeholder="タイトルの名前を入力" maxlength="256" size="100" required><br/><br/>
+    概要 (必須)<br/><input type="text" id="overview" placeholder="概要を入力" maxlength="256" size="100" required><br/><br/>
+    ジャンル (必須)<br/><input type="text" id="genre" placeholder="ジャンルを入力" maxlength="256" size="100" required><br/><br/><br/>
+    </nav>
+
+  <button onclick="createTitle()">タイトル作成</button>
+
+</body>
+</html>

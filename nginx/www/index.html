@@ -1,12 +1,53 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <title>Hello frontend</title>
-    <link rel="stylesheet" type="text/css" href="css/index.css">
-  </head>
-  <body>
-    <h1>Hello frontend</h1>
+<head>
+    <meta charset="UTF-8">
+    <title>タイトルリスト　画面</title>
+    <script>
+      window.addEventListener('load', (event) => {
+        gettitles();
+      });
 
-    <script src="js/index.js"></script>
-  </body>
+      function gettitles() {
+        fetch('http://localhost:3000/app/titile/get')
+          .then(response => response.json())
+          .then(data => {
+            const titleList = document.getElementById('title-list');
+            data.titleList.forEach(title => {
+              const titleElement = document.createElement('li');
+              const titleLinkElement = document.createElement('a');
+              const overviewElement = document.createElement('p');
+              const genreElement = document.createElement('p');
+
+              titleLinkElement.setAttribute('href', `http://localhost/story.html?titleid=${title.id}`);
+              titleLinkElement.textContent = title.titleName;
+              overviewElement.textContent = title.overview;
+              genreElement.textContent = title.genre;
+
+              titleElement.appendChild(titleLinkElement);
+              titleElement.appendChild(overviewElement);
+              titleElement.appendChild(genreElement);
+              titleList.appendChild(titleElement);
+            });
+          });
+      }
+
+      function createTitle() {
+        window.location.href = 'http://localhost/createtitle.html';
+      }
+    </script>
+
+</head>
+<body>
+    <header>
+    <h1 class="headline">
+    タイトルリスト
+    </h1>
+    </header>
+    <nav>
+    <ul class="title-list"></ul>
+      
+    <button onclick="createTitle()">タイトル作成</button>
+  </nav>
+</body>
 </html>
