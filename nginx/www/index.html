@@ -9,7 +9,7 @@
       });
 
       function gettitles() {
-        fetch('http://localhost:3000/app/titile/get')
+        fetch('http://localhost:3000/app/title/get')
           .then(response => response.json())
           .then(data => {
             const titleList = document.getElementById('title-list');
