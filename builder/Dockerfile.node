@@ -4,7 +4,7 @@ WORKDIR /usr/src/app
 RUN chown -R node:node /usr/src/app
 USER node
 
-COPY ./novelBuilder/package*.json ./
+COPY ./novelBuilder/package.json ./
 
 RUN npm install
 
