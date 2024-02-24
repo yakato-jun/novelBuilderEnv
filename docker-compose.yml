@@ -32,6 +32,21 @@ services:
     networks:
       - novel-builder-network
 
+  nginx:
+    container_name: nginx
+    build:
+      context: .
+      dockerfile: builder/Dockerfile.nginx
+    ports:
+      - "80:80"
+    volumes:
+      - ./nginx/www:/usr/share/nginx/html
+      - ./log/nginx:/var/log/nginx
+    networks:
+      - novel-builder-network
+    depends_on:
+      - novel-builder
+      - mysql
 
 networks:
   novel-builder-network:
