@@ -1,0 +1,41 @@
+version: "3.9"
+services:
+  novel-builder:
+    container_name: novel-builder
+    build:
+      context: .
+      dockerfile: builder/Dockerfile.node
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./novelBuilder:/usr/src/app
+      - ./log/novelBuilder:/var/log/novelBuilder
+    environment:
+      - NODE_ENV=production
+    env_file:
+      - .env
+    networks:
+      - novel-builder-network
+    command: ["npm", "run", "production"]
+
+  mysql:
+    container_name: mysql
+    build:
+      context: .
+      dockerfile: builder/Dockerfile.mysql
+    env_file:
+      - .env
+    ports:
+      - "3306:3306"
+    volumes:
+      - dbdata:/var/lib/mysql
+    networks:
+      - novel-builder-network
+
+
+networks:
+  novel-builder-network:
+    driver: bridge
+
+volumes:
+  dbdata:

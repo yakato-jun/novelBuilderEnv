@@ -1,0 +1,3 @@
+[submodule "novelBuilder"]
+	path = novelBuilder
+	url = git@github.com:technokuro/novelBuilder.git
