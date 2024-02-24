@@ -1,6 +1,7 @@
 # installation
 ```bash
 $ git submodule update --init
+$ cp .env.template .env
 $ docker compose build
 $ docker compose run --rm novel-builder bash -c "npm install"
 ```
